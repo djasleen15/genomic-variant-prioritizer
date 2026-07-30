@@ -1,0 +1,30 @@
+name: variantfx
+channels:
+  - conda-forge
+  - bioconda
+  - pytorch
+  - nodefaults
+dependencies:
+  - python=3.11
+  - pip=24.0
+  # --- genomics / sequence handling (bioconda, htslib-backed) ---
+  - pysam=0.22.1
+  - pyfaidx=0.8.1.1
+  - pyliftover=0.4.1
+  # --- ML core ---
+  - pytorch=2.3.1
+  - cpuonly  # remove this line and add the correct cuda toolkit package if you have a GPU
+  - scikit-learn=1.5.0
+  - pandas=2.2.2
+  - numpy=1.26.4
+  # --- pipeline orchestration ---
+  - snakemake-minimal=8.14.0
+  # --- misc ---
+  - click=8.1.7
+  - pytest=8.2.2
+  - pip:
+      - transformers==4.42.3
+      - tokenizers==0.19.1
+      - huggingface-hub==0.23.4
+      - mlflow==2.14.1
+      - datasets==2.20.0

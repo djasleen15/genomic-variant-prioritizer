@@ -1,0 +1,25 @@
+# Data (user-supplied, never committed — see README for sourcing instructions)
+data/*
+!data/.gitkeep
+
+# COSMIC CGC gene list must never be committed (licensing — see spec Section 4/7)
+*cosmic*
+*CGC*
+
+# Model checkpoints / large artifacts
+*.ckpt
+*.pt
+*.bin
+checkpoints/
+mlruns/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Conda / env
+*.egg-info/
+
+# OS
+.DS_Store

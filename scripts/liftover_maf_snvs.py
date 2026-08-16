@@ -61,17 +61,76 @@ def reject(writer: csv.DictWriter, row: dict[str, str], reason: str) -> None:
     writer.writerow({**row, "Liftover_Rejection_Reason": reason})
 
 
-def main() -> None:
-    args = parse_args()
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.rejected.parent.mkdir(parents=True, exist_ok=True)
-    lifter = LiftOver(str(args.chain))
+def convert_snv_record(
+    source_row: dict[str, str], lifter: LiftOver
+) -> tuple[dict[str, str] | None, str | None, bool]:
+    """Convert one MAF record, returning output, rejection reason, and reversal."""
+    row = source_row.copy()
+    if row["NCBI_Build"] != "GRCh37":
+        return None, "unexpected_source_build", False
+    if row["Variant_Type"] != "SNP":
+        return None, "not_snv", False
+
+    try:
+        start_position = int(row["Start_Position"])
+        end_position = int(row["End_Position"])
+    except ValueError:
+        return None, "invalid_position", False
+    if start_position < 1 or end_position < 1:
+        return None, "invalid_position", False
+    if start_position != end_position:
+        return None, "snv_interval_not_one_base", False
+
+    # MAF coordinates are 1-based; pyliftover coordinates are 0-based.
+    source_position = start_position - 1
+    mappings = lifter.convert_coordinate(
+        normalize_chromosome(row["Chromosome"]), source_position
+    )
+    if not mappings:
+        return None, "unmapped", False
+    if len(mappings) != 1:
+        return None, "multiple_mappings", False
+
+    target_chromosome, target_position, target_strand, _ = mappings[0]
+    if target_strand not in {"+", "-"}:
+        return None, "invalid_target_strand", False
+    target_maf_chromosome = maf_chromosome(target_chromosome)
+    if target_maf_chromosome not in PRIMARY_CHROMOSOMES:
+        return None, "non_primary_target_contig", False
+
+    row["NCBI_Build"] = "GRCh38"
+    row["Chromosome"] = target_maf_chromosome
+    # pyliftover returns a 0-based target coordinate; MAF is 1-based.
+    row["Start_Position"] = str(target_position + 1)
+    row["End_Position"] = str(target_position + 1)
+    reverse_strand = target_strand == "-"
+    if reverse_strand:
+        for column in (
+            "Reference_Allele",
+            "Tumor_Seq_Allele1",
+            "Tumor_Seq_Allele2",
+        ):
+            row[column] = complement(row[column])
+    # Alleles are emitted relative to the target reference's forward strand.
+    row["Strand"] = "+"
+    return row, None, reverse_strand
+
+
+def process_maf(
+    input_path: Path,
+    output_path: Path,
+    rejected_path: Path,
+    lifter: LiftOver,
+) -> Counter[str]:
+    """Convert a MAF and return mutually auditable processing counts."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    rejected_path.parent.mkdir(parents=True, exist_ok=True)
     counts: Counter[str] = Counter()
 
     with (
-        args.input.open(newline="") as source,
-        args.output.open("w", newline="") as destination,
-        args.rejected.open("w", newline="") as rejected,
+        input_path.open(newline="") as source,
+        output_path.open("w", newline="") as destination,
+        rejected_path.open("w", newline="") as rejected,
     ):
         reader = csv.DictReader(source, delimiter="\t")
         if reader.fieldnames is None:
@@ -97,67 +156,24 @@ def main() -> None:
 
         for row in reader:
             counts["input"] += 1
-            if row["NCBI_Build"] != "GRCh37":
-                reject(rejected_writer, row, "unexpected_source_build")
-                counts["unexpected_source_build"] += 1
+            converted, reason, reverse_strand = convert_snv_record(row, lifter)
+            if reason is not None:
+                reject(rejected_writer, row, reason)
+                counts[reason] += 1
                 continue
-            if row["Variant_Type"] != "SNP":
-                reject(rejected_writer, row, "not_snv")
-                counts["not_snv"] += 1
-                continue
-            if row["Start_Position"] != row["End_Position"]:
-                reject(rejected_writer, row, "snv_interval_not_one_base")
-                counts["snv_interval_not_one_base"] += 1
-                continue
-
-            try:
-                source_position = int(row["Start_Position"]) - 1
-            except ValueError:
-                reject(rejected_writer, row, "invalid_position")
-                counts["invalid_position"] += 1
-                continue
-
-            mappings = lifter.convert_coordinate(
-                normalize_chromosome(row["Chromosome"]), source_position
-            )
-            if not mappings:
-                reject(rejected_writer, row, "unmapped")
-                counts["unmapped"] += 1
-                continue
-            if len(mappings) != 1:
-                reject(rejected_writer, row, "multiple_mappings")
-                counts["multiple_mappings"] += 1
-                continue
-
-            target_chromosome, target_position, target_strand, _ = mappings[0]
-            if target_strand not in {"+", "-"}:
-                reject(rejected_writer, row, "invalid_target_strand")
-                counts["invalid_target_strand"] += 1
-                continue
-            target_maf_chromosome = maf_chromosome(target_chromosome)
-            if target_maf_chromosome not in PRIMARY_CHROMOSOMES:
-                reject(rejected_writer, row, "non_primary_target_contig")
-                counts["non_primary_target_contig"] += 1
-                continue
-
-            row["NCBI_Build"] = "GRCh38"
-            row["Chromosome"] = target_maf_chromosome
-            row["Start_Position"] = str(target_position + 1)
-            row["End_Position"] = str(target_position + 1)
-            if target_strand == "-":
-                for column in (
-                    "Reference_Allele",
-                    "Tumor_Seq_Allele1",
-                    "Tumor_Seq_Allele2",
-                ):
-                    row[column] = complement(row[column])
+            if reverse_strand:
                 counts["reverse_strand"] += 1
-            # Alleles are emitted relative to the target reference's forward strand.
-            row["Strand"] = "+"
-
-            output_writer.writerow(row)
+            assert converted is not None
+            output_writer.writerow(converted)
             counts["lifted"] += 1
 
+    return counts
+
+
+def main() -> None:
+    args = parse_args()
+    lifter = LiftOver(str(args.chain))
+    counts = process_maf(args.input, args.output, args.rejected, lifter)
     for key in sorted(counts):
         print(f"{key}\t{counts[key]}")
 

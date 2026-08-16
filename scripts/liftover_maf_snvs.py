@@ -30,6 +30,7 @@ REQUIRED_COLUMNS = {
 }
 BASE_COMPLEMENT = str.maketrans("ACGTNacgtn", "TGCANtgcan")
 PRIMARY_CHROMOSOMES = {str(number) for number in range(1, 23)} | {"X", "Y"}
+LIFTOVER_STRAND_COLUMN = "Liftover_Strand"
 
 
 def parse_args() -> argparse.Namespace:
@@ -104,6 +105,7 @@ def convert_snv_record(
     row["Start_Position"] = str(target_position + 1)
     row["End_Position"] = str(target_position + 1)
     reverse_strand = target_strand == "-"
+    row[LIFTOVER_STRAND_COLUMN] = target_strand
     if reverse_strand:
         for column in (
             "Reference_Allele",
@@ -141,7 +143,7 @@ def process_maf(
 
         output_writer = csv.DictWriter(
             destination,
-            fieldnames=reader.fieldnames,
+            fieldnames=[*reader.fieldnames, LIFTOVER_STRAND_COLUMN],
             delimiter="\t",
             lineterminator="\n",
         )

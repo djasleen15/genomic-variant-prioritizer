@@ -4,7 +4,11 @@ from pathlib import Path
 import pytest
 from pyliftover import LiftOver
 
-from scripts.liftover_maf_snvs import convert_snv_record, process_maf
+from scripts.liftover_maf_snvs import (
+    LIFTOVER_STRAND_COLUMN,
+    convert_snv_record,
+    process_maf,
+)
 
 
 FIELDNAMES = [
@@ -70,6 +74,7 @@ def test_forward_mapping_converts_between_maf_and_pyliftover_coordinates():
     assert converted["Tumor_Seq_Allele1"] == "A"
     assert converted["Tumor_Seq_Allele2"] == "C"
     assert converted["Strand"] == "+"
+    assert converted[LIFTOVER_STRAND_COLUMN] == "+"
 
 
 def test_reverse_mapping_complements_every_allele_and_emits_forward_strand():
@@ -86,6 +91,7 @@ def test_reverse_mapping_complements_every_allele_and_emits_forward_strand():
     assert converted["Tumor_Seq_Allele1"] == "T"
     assert converted["Tumor_Seq_Allele2"] == "G"
     assert converted["Strand"] == "+"
+    assert converted[LIFTOVER_STRAND_COLUMN] == "-"
 
 
 @pytest.mark.parametrize(
@@ -134,6 +140,7 @@ def test_real_forward_coordinate_matches_independent_ensembl_mapping():
     assert converted["End_Position"] == "66314996"
     assert converted["Reference_Allele"] == "C"
     assert converted["Tumor_Seq_Allele2"] == "T"
+    assert converted[LIFTOVER_STRAND_COLUMN] == "+"
 
 
 @requires_local_chain
@@ -161,6 +168,7 @@ def test_real_reverse_coordinate_matches_independent_ensembl_mapping():
     assert converted["Tumor_Seq_Allele1"] == "C"
     assert converted["Tumor_Seq_Allele2"] == "G"
     assert converted["Strand"] == "+"
+    assert converted[LIFTOVER_STRAND_COLUMN] == "-"
 
 
 @pytest.mark.parametrize(

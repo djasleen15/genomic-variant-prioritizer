@@ -1,0 +1,14 @@
+genome_build: GRCh38
+window_size: 512
+variant_index: 256
+split_version: gene-split-v1
+split_seed: 42
+
+paths:
+  source_maf: data/raw/data_mutations.txt
+  lifted_maf: data/raw/data_mutations_grch38_snvs.txt
+  liftover_rejected: data/raw/data_mutations_liftover_rejected.txt
+  liftover_chain: data/raw/reference/hg19ToHg38.over.chain.gz
+  reference_dir: data/raw/reference
+  cgc: data/raw/cosmic/cancer_gene_census.csv
+  phase2_dir: data/processed/phase2

@@ -13,4 +13,13 @@ paths:
   cgc: data/raw/cosmic/cancer_gene_census.csv
   phase2_dir: data/processed/phase2
   phase3_dir: data/processed/phase3
+  phase4_dir: data/processed/phase4
   mlflow_dir: mlruns
+
+phase4:
+  model_name: InstaDeepAI/nucleotide-transformer-v2-50m-multi-species
+  batch_size: 16
+  learning_rate: 0.00002
+  epochs: 3
+  patience: 1
+  tokenizer_audit_samples: 100

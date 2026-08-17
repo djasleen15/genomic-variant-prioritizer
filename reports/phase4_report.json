@@ -1,0 +1,2153 @@
+{
+  "model_name": "InstaDeepAI/nucleotide-transformer-v2-50m-multi-species",
+  "architecture": "shared encoder; contextual embeddings at mutation-containing token 43 for ref, alt, and alt-minus-ref concatenated into an MLP classifier",
+  "training_approach": "full_fine_tuning",
+  "split_version": "gene-split-v1",
+  "class_weighted_loss": [
+    0.5404183268547058,
+    6.685312747955322
+  ],
+  "tokenizer_audit": {
+    "sample_size": 100,
+    "variant_index_zero_based": 256,
+    "all_pairs_same_token_count": true,
+    "all_pairs_same_boundary_alignment": true,
+    "unique_covering_spans": [
+      "252:258"
+    ],
+    "unique_variant_offsets_within_token": [
+      4
+    ],
+    "records": [
+      {
+        "row_index": 67179,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGCTCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGCTTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 25462,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTGTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTGTGA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 110577,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGAAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 12080,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCAGGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCAGAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 81667,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCTTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCTTCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 65822,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCGGCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCGGGA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 19124,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACTGCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACTGTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 38691,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGATCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGATGT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 6770,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCATCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCATTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 32549,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CGATGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CGATAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 65380,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGCTCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGCTGT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 84466,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCCCGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCCCTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 47161,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCCAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCCACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 60993,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGATCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGATTT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 67781,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TTCTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TTCTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 37205,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTCTGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTCTAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 82038,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGCCGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGCCAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 21049,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACTCCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACTCTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 88885,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GTGATG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GTGAAG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 94434,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGATCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGATTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 95579,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GCTAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GCTACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 16528,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACCTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACCTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 47103,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AAAAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AAAACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 34735,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGTTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGTTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 18596,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCCCGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCCCAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 23111,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GAGTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GAGTCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 38854,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGAGGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGAGAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 71285,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TAGTCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TAGTTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 68804,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGTTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGTTCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 54427,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTCCGG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTCCAG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 28409,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GCTGTC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GCTGCC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 39971,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 104500,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGGTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGGTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 26459,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGATCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGATAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 11906,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGTTCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGTTAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 63430,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TTTTAG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TTTTGG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 90132,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GTATGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GTATAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 90401,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACTCTG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACTCCG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 53936,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATTTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATTTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 19577,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGACGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGACAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 48636,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CGCTCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CGCTAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 22661,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCATCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCATTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 32385,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AATTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AATTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 87625,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GTTCCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GTTCAG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 48082,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CATCTG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CATCAG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 28814,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGGGGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGGGTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 15365,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CAGAAA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CAGACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 27826,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGTTCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGTTTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 84180,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCATGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCATAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 57904,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGACGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGACCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 20632,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACCTCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACCTGT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 94393,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGATGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGATCC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 31756,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACGAGG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACGAAG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 110378,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATACGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATACAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 69268,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTGGCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTGGTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 51989,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GACCGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GACCAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 110055,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATTCCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATTCGC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 93338,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGGGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGGTT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 108183,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTTTCC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTTTAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 103957,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGAAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 85582,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACACGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACACTC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 65746,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCTGCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCTGTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 90491,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACTGCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACTGTT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 71076,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCATCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCATTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 99376,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGCACT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGCAAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 94026,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCCCGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCCCAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 69188,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TACATT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TACACT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 82108,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GTTTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GTTTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 48182,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GACTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GACTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 45323,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCGCGT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCGCAT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 35730,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GTCCGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GTCCAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 94046,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GATGGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GATGAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 32280,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TTTAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TTTAAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 38473,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGACC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGAAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 35722,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCTCGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCTCAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 97387,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CAGTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CAGTAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 33396,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGTTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGTTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 49668,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ACTTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ACTTCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 67020,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGATGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGATCA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 90640,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCCGGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCCGTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 32603,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GGGCGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GGGCAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 25136,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGATCT",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGATGT",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 62870,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GCTGGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GCTGAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 39359,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GCCTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GCCTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 8235,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TGGAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TGGATA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 68604,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATGGTC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATGGAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 90863,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATTTCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATTTTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 87079,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CTCTGC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CTCTAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 105119,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATAGAA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATAGTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 34273,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CGTTCG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CGTTTG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 87915,
+        "ref_token": {
+          "token_index": 43,
+          "token": "GAGATC",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "GAGAAC",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 11168,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AAAAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AAAATA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 20429,
+        "ref_token": {
+          "token_index": 43,
+          "token": "ATGTGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "ATGTAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 25776,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCATCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCATAA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 11402,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGGATG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGGACG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 6361,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TCGGGG",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TCGGCG",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 4851,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CCAGGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CCAGTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 28588,
+        "ref_token": {
+          "token_index": 43,
+          "token": "TTTAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "TTTACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 40199,
+        "ref_token": {
+          "token_index": 43,
+          "token": "AGAAGA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "AGAACA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      },
+      {
+        "row_index": 39792,
+        "ref_token": {
+          "token_index": 43,
+          "token": "CACCCA",
+          "start": 252,
+          "end": 258
+        },
+        "alt_token": {
+          "token_index": 43,
+          "token": "CACCTA",
+          "start": 252,
+          "end": 258
+        },
+        "ref_token_count": 88,
+        "alt_token_count": 88,
+        "same_token_count": true,
+        "same_boundary_alignment": true,
+        "variant_offset_within_token": 4
+      }
+    ]
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6452224928492883,
+      "validation": {
+        "auprc": 0.0905863718748543,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.07218488168676918,
+            "recall": 1.0,
+            "predicted_positive": 10861
+          },
+          "0.5": {
+            "precision": 0.10517799352750809,
+            "recall": 0.08290816326530612,
+            "predicted_positive": 618
+          },
+          "0.75": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "predicted_positive": 5
+          }
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5737114556151046,
+      "validation": {
+        "auprc": 0.08220775186622127,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.08040626322471435,
+            "recall": 0.4846938775510204,
+            "predicted_positive": 4726
+          },
+          "0.5": {
+            "precision": 0.08387096774193549,
+            "recall": 0.1326530612244898,
+            "predicted_positive": 1240
+          },
+          "0.75": {
+            "precision": 0.08018867924528301,
+            "recall": 0.021683673469387755,
+            "predicted_positive": 212
+          }
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.3360385432615488,
+      "validation": {
+        "auprc": 0.07347242517091379,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.07070457354758962,
+            "recall": 0.3647959183673469,
+            "predicted_positive": 4045
+          },
+          "0.5": {
+            "precision": 0.07740466704610131,
+            "recall": 0.17346938775510204,
+            "predicted_positive": 1757
+          },
+          "0.75": {
+            "precision": 0.08625730994152046,
+            "recall": 0.07525510204081633,
+            "predicted_positive": 684
+          }
+        }
+      }
+    }
+  ],
+  "validation": {
+    "auprc": 0.0905863718748543,
+    "positive_rate": 0.07218488168676918,
+    "thresholds": {
+      "0.25": {
+        "precision": 0.07218488168676918,
+        "recall": 1.0,
+        "predicted_positive": 10861
+      },
+      "0.5": {
+        "precision": 0.10517799352750809,
+        "recall": 0.08290816326530612,
+        "predicted_positive": 618
+      },
+      "0.75": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "predicted_positive": 5
+      }
+    }
+  },
+  "test": {
+    "auprc": 0.08597965932255075,
+    "positive_rate": 0.06815780204297288,
+    "thresholds": {
+      "0.25": {
+        "precision": 0.06815780204297288,
+        "recall": 1.0,
+        "predicted_positive": 11356
+      },
+      "0.5": {
+        "precision": 0.0877742946708464,
+        "recall": 0.07235142118863049,
+        "predicted_positive": 638
+      },
+      "0.75": {
+        "precision": 0.5,
+        "recall": 0.00904392764857881,
+        "predicted_positive": 14
+      }
+    }
+  },
+  "baseline": {
+    "validation_auprc": 0.08727184295835033,
+    "test_auprc": 0.07525126312375156
+  },
+  "improvement": {
+    "validation_auprc": 0.003314528916503967,
+    "test_auprc": 0.010728396198799187
+  },
+  "mlflow_run_id": "55b3b3bc4ad448a1ad520b09021f5800",
+  "checkpoint": "/content/drive/MyDrive/variantfx/phase4/artifacts/best_model.pt"
+}

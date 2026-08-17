@@ -1,12 +1,14 @@
 configfile: "config/config.yaml"
 
 PHASE2 = config["paths"]["phase2_dir"]
+PHASE3 = config["paths"]["phase3_dir"]
 
 
 rule all:
     input:
         f"{PHASE2}/labeled_split_dataset.tsv",
         f"{PHASE2}/phase2_validation.json",
+        f"{PHASE3}/baseline_report.json",
 
 
 rule liftover:
@@ -95,4 +97,21 @@ rule validate_phase2:
         report=f"{PHASE2}/phase2_validation.json",
     shell:
         "python -m src.pipeline.validate_phase2 --input {input.dataset} "
+        "--report {output.report}"
+
+
+rule baseline:
+    input:
+        dataset=rules.split_dataset.output.dataset,
+    output:
+        report=f"{PHASE3}/baseline_report.json",
+        sequence_model=f"{PHASE3}/sequence_only_logistic.joblib",
+        forest_model=f"{PHASE3}/sequence_only_random_forest.joblib",
+        diagnostic_model=f"{PHASE3}/cgc_inclusive_diagnostic_logistic.joblib",
+    params:
+        output_dir=PHASE3,
+        mlflow_dir=config["paths"]["mlflow_dir"],
+    shell:
+        "python -m src.models.baseline --input {input.dataset} "
+        "--output-dir {params.output_dir} --mlflow-dir {params.mlflow_dir} "
         "--report {output.report}"

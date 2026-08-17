@@ -1,0 +1,174 @@
+{
+  "baseline_selection_rule": "highest validation AUPRC among sequence-only models",
+  "baseline_to_beat": "sequence_only_logistic",
+  "baseline_to_beat_validation_auprc": 0.08727184295835033,
+  "baseline_to_beat_test_auprc": 0.07525126312375156,
+  "feature_set": {
+    "numeric": [
+      "Reference_GC_Content",
+      "Alternate_GC_Content",
+      "GC_Content_Delta",
+      "Is_Transition",
+      "Is_CpG_Context"
+    ],
+    "categorical": [
+      "Reference_Base",
+      "Alternate_Base",
+      "Trinucleotide_Context"
+    ],
+    "diagnostic_only": [
+      "CGC_Member"
+    ]
+  },
+  "cgc_circularity_caveat": "CGC membership is the label source. The CGC-inclusive result is a circular diagnostic, not the meaningful Phase 4 baseline.",
+  "conservation_score_omission": "Conservation was omitted because no local score track was available; acquiring one is optional and outside the scoped baseline.",
+  "models": {
+    "sequence_only_logistic": {
+      "include_cgc_membership": false,
+      "model": "logistic_regression",
+      "class_weight": "balanced",
+      "validation": {
+        "auprc": 0.08727184295835033,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.07218488168676918,
+            "recall": 1.0,
+            "predicted_positive": 10861
+          },
+          "0.5": {
+            "precision": 0.0825445740699978,
+            "recall": 0.47831632653061223,
+            "predicted_positive": 4543
+          },
+          "0.75": {
+            "precision": 0.15254237288135594,
+            "recall": 0.011479591836734694,
+            "predicted_positive": 59
+          }
+        }
+      },
+      "test": {
+        "auprc": 0.07525126312375156,
+        "positive_rate": 0.06815780204297288,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.06815780204297288,
+            "recall": 1.0,
+            "predicted_positive": 11356
+          },
+          "0.5": {
+            "precision": 0.07302783008997699,
+            "recall": 0.4509043927648579,
+            "predicted_positive": 4779
+          },
+          "0.75": {
+            "precision": 0.0958904109589041,
+            "recall": 0.00904392764857881,
+            "predicted_positive": 73
+          }
+        }
+      },
+      "model_path": "data/processed/phase3/sequence_only_logistic.joblib",
+      "mlflow_run_id": "e3d053afb2d24170b3532181a0432b29"
+    },
+    "sequence_only_random_forest": {
+      "include_cgc_membership": false,
+      "model": "random_forest",
+      "class_weight": "balanced_subsample",
+      "validation": {
+        "auprc": 0.07346408102754005,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.07393397524071527,
+            "recall": 0.548469387755102,
+            "predicted_positive": 5816
+          },
+          "0.5": {
+            "precision": 0.07817109144542773,
+            "recall": 0.20280612244897958,
+            "predicted_positive": 2034
+          },
+          "0.75": {
+            "precision": 0.05504587155963303,
+            "recall": 0.007653061224489796,
+            "predicted_positive": 109
+          }
+        }
+      },
+      "test": {
+        "auprc": 0.07087230068074889,
+        "positive_rate": 0.06815780204297288,
+        "thresholds": {
+          "0.25": {
+            "precision": 0.0681240467717336,
+            "recall": 0.5193798449612403,
+            "predicted_positive": 5901
+          },
+          "0.5": {
+            "precision": 0.07504780114722753,
+            "recall": 0.20284237726098192,
+            "predicted_positive": 2092
+          },
+          "0.75": {
+            "precision": 0.05714285714285714,
+            "recall": 0.007751937984496124,
+            "predicted_positive": 105
+          }
+        }
+      },
+      "model_path": "data/processed/phase3/sequence_only_random_forest.joblib",
+      "mlflow_run_id": "689e2c0cf50d413e90973f7e57946280"
+    },
+    "cgc_inclusive_diagnostic_logistic": {
+      "include_cgc_membership": true,
+      "model": "logistic_regression",
+      "class_weight": "balanced",
+      "validation": {
+        "auprc": 1.0,
+        "positive_rate": 0.07218488168676918,
+        "thresholds": {
+          "0.25": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 784
+          },
+          "0.5": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 784
+          },
+          "0.75": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 784
+          }
+        }
+      },
+      "test": {
+        "auprc": 1.0,
+        "positive_rate": 0.06815780204297288,
+        "thresholds": {
+          "0.25": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 774
+          },
+          "0.5": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 774
+          },
+          "0.75": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "predicted_positive": 774
+          }
+        }
+      },
+      "model_path": "data/processed/phase3/cgc_inclusive_diagnostic_logistic.joblib",
+      "mlflow_run_id": "fdcef49064844503bd33d534a2e3756d"
+    }
+  }
+}

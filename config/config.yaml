@@ -12,3 +12,5 @@ paths:
   reference_dir: data/raw/reference
   cgc: data/raw/cosmic/cancer_gene_census.csv
   phase2_dir: data/processed/phase2
+  phase3_dir: data/processed/phase3
+  mlflow_dir: mlruns

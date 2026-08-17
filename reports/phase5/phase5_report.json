@@ -1,0 +1,62 @@
+{
+  "validation": {
+    "iterations": 10000,
+    "seed": 42,
+    "method": "paired stratified percentile bootstrap",
+    "baseline_auprc": 0.08727184295835033,
+    "fine_tuned_auprc": 0.0905863718748543,
+    "difference": 0.003314528916503967,
+    "difference_ci_95": [
+      -0.00713319615550645,
+      0.012804365672756111
+    ],
+    "difference_ci_excludes_zero": false,
+    "baseline_ci_95": [
+      0.08036163442432451,
+      0.09706850771276072
+    ],
+    "fine_tuned_ci_95": [
+      0.08411877216547292,
+      0.09919188869390544
+    ]
+  },
+  "test": {
+    "iterations": 10000,
+    "seed": 43,
+    "method": "paired stratified percentile bootstrap",
+    "baseline_auprc": 0.07525126312375156,
+    "fine_tuned_auprc": 0.08597967773278647,
+    "difference": 0.010728414609034911,
+    "difference_ci_95": [
+      0.0006574373249721294,
+      0.02262565077683702
+    ],
+    "difference_ci_excludes_zero": true,
+    "baseline_ci_95": [
+      0.07040651303624834,
+      0.08254496065097147
+    ],
+    "fine_tuned_ci_95": [
+      0.0778437498309867,
+      0.09791557522956934
+    ]
+  },
+  "test_probability_distribution": {
+    "min": 0.3029424250125885,
+    "max": 0.9670175909996032,
+    "mean": 0.4127145217795236,
+    "median": 0.40747316181659693,
+    "standard_deviation": 0.053929542799169214,
+    "quantiles": {
+      "0.01": 0.3216762363910675,
+      "0.05": 0.3382328599691391,
+      "0.25": 0.3754559531807899,
+      "0.5": 0.40747316181659693,
+      "0.75": 0.4415148422122001,
+      "0.95": 0.5033044368028641,
+      "0.99": 0.563262361288071
+    }
+  },
+  "cadd_comparison": "Omitted: no local CADD scores were available; optional acquisition was not allowed to delay Phase 5.",
+  "conclusion": "The point estimates favor the fine-tuned model, but the paired bootstrap does not confirm improvement on both splits; the result is directionally suggestive."
+}

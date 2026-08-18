@@ -32,11 +32,14 @@ class TrainingConfig:
     model_name: str = MODEL_NAME
     batch_size: int = 16
     learning_rate: float = 2e-5
+    weight_decay: float = 0.01
     epochs: int = 3
     patience: int = 1
     seed: int = 42
     freeze_encoder: bool = False
     audit_samples: int = 100
+    pooling: str = "mutation"
+    conservation_feature_count: int = 0
 
 
 class VariantPairDataset(Dataset):
@@ -73,11 +76,27 @@ class PairCollator:
 class PairedSequenceClassifier(nn.Module):
     """Shared encoder using the contextualized mutation-containing token."""
 
-    def __init__(self, encoder: nn.Module, hidden_size: int, dropout: float = 0.1):
+    def __init__(
+        self,
+        encoder: nn.Module,
+        hidden_size: int,
+        dropout: float = 0.1,
+        pooling: str = "mutation",
+        conservation_feature_count: int = 0,
+    ):
         super().__init__()
+        if pooling not in {"mutation", "mean", "attention"}:
+            raise ValueError(f"Unknown pooling strategy: {pooling}")
+        if conservation_feature_count < 0:
+            raise ValueError("conservation_feature_count cannot be negative")
         self.encoder = encoder
+        self.pooling = pooling
+        self.conservation_feature_count = conservation_feature_count
+        self.attention_pooler = nn.Linear(hidden_size, 1) if pooling == "attention" else None
         self.classifier = nn.Sequential(
-            nn.Dropout(dropout), nn.Linear(hidden_size * 3, hidden_size), nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_size * 3 + conservation_feature_count, hidden_size),
+            nn.GELU(),
             nn.Dropout(dropout), nn.Linear(hidden_size, 2)
         )
 
@@ -85,14 +104,33 @@ class PairedSequenceClassifier(nn.Module):
         hidden = self.encoder(
             input_ids=input_ids, attention_mask=attention_mask
         ).last_hidden_state
-        if hidden.shape[1] <= VARIANT_TOKEN_INDEX:
-            raise ValueError("Tokenized sequence is too short to contain the variant token")
-        return hidden[:, VARIANT_TOKEN_INDEX, :]
+        mask = attention_mask.bool()
+        if self.pooling == "mutation":
+            if hidden.shape[1] <= VARIANT_TOKEN_INDEX:
+                raise ValueError("Tokenized sequence is too short to contain the variant token")
+            if not mask[:, VARIANT_TOKEN_INDEX].all():
+                raise ValueError("Variant token is masked for at least one sequence")
+            return hidden[:, VARIANT_TOKEN_INDEX, :]
+        if self.pooling == "mean":
+            weights = mask.unsqueeze(-1).to(hidden.dtype)
+            return (hidden * weights).sum(dim=1) / weights.sum(dim=1).clamp_min(1)
+        scores = self.attention_pooler(hidden).squeeze(-1)
+        scores = scores.masked_fill(~mask, torch.finfo(scores.dtype).min)
+        weights = torch.softmax(scores, dim=1).unsqueeze(-1)
+        return (hidden * weights).sum(dim=1)
 
     def forward(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
         ref = self.encode(batch["ref_input_ids"], batch["ref_attention_mask"])
         alt = self.encode(batch["alt_input_ids"], batch["alt_attention_mask"])
-        return self.classifier(torch.cat([ref, alt, alt - ref], dim=-1))
+        features = [ref, alt, alt - ref]
+        if self.conservation_feature_count:
+            conservation = batch.get("conservation_features")
+            if conservation is None:
+                raise ValueError("conservation_features are required by this model")
+            if conservation.shape[-1] != self.conservation_feature_count:
+                raise ValueError("Unexpected conservation feature width")
+            features.append(conservation.to(ref.dtype))
+        return self.classifier(torch.cat(features, dim=-1))
 
 
 def token_spans(tokens: list[str]) -> list[dict[str, Any]]:
@@ -228,7 +266,12 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
     # not generic AutoModel loading. Retain only its underlying EsmModel encoder.
     encoder = pretrained.base_model
     hidden_size = pretrained.config.hidden_size
-    model = PairedSequenceClassifier(encoder, hidden_size)
+    model = PairedSequenceClassifier(
+        encoder,
+        hidden_size,
+        pooling=config.pooling,
+        conservation_feature_count=config.conservation_feature_count,
+    )
     if config.freeze_encoder:
         for parameter in model.encoder.parameters(): parameter.requires_grad = False
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -244,7 +287,11 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
     }
     weights = class_weights(subsets["train"].Label).to(device)
     criterion = nn.CrossEntropyLoss(weight=weights)
-    optimizer = torch.optim.AdamW((p for p in model.parameters() if p.requires_grad), lr=config.learning_rate)
+    optimizer = torch.optim.AdamW(
+        (p for p in model.parameters() if p.requires_grad),
+        lr=config.learning_rate,
+        weight_decay=config.weight_decay,
+    )
     checkpoint = output_dir / "best_model.pt"
     mlflow.set_tracking_uri(mlflow_dir.resolve().as_uri()); mlflow.set_experiment("phase4-nucleotide-transformer")
     best_auprc, stale_epochs, history = -1.0, 0, []

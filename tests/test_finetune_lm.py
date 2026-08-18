@@ -78,6 +78,34 @@ def test_classifier_combines_shared_ref_alt_embeddings():
     assert model(batch).shape == (2, 2)
 
 
+@pytest.mark.parametrize("pooling", ["mutation", "mean", "attention"])
+def test_classifier_supports_phase9_pooling_strategies(pooling):
+    model = PairedSequenceClassifier(TinyEncoder(), hidden_size=4, dropout=0, pooling=pooling)
+    token_ids = torch.arange(44).repeat(2, 1)
+    attention_mask = torch.ones((2, 44), dtype=torch.long)
+    batch = {key: token_ids for key in ("ref_input_ids", "alt_input_ids")}
+    batch.update({key: attention_mask for key in ("ref_attention_mask", "alt_attention_mask")})
+    assert model(batch).shape == (2, 2)
+
+
+def test_classifier_requires_configured_conservation_features():
+    model = PairedSequenceClassifier(
+        TinyEncoder(), hidden_size=4, dropout=0, conservation_feature_count=4
+    )
+    ids = torch.arange(44).repeat(2, 1)
+    mask = torch.ones_like(ids)
+    batch = {
+        "ref_input_ids": ids,
+        "ref_attention_mask": mask,
+        "alt_input_ids": ids,
+        "alt_attention_mask": mask,
+    }
+    with pytest.raises(ValueError, match="conservation_features"):
+        model(batch)
+    batch["conservation_features"] = torch.zeros((2, 4))
+    assert model(batch).shape == (2, 2)
+
+
 def test_class_weights_balance_binary_training_labels():
     weights = class_weights(pd.Series([0] * 9 + [1]))
     assert weights.tolist() == pytest.approx([10 / 18, 5.0])

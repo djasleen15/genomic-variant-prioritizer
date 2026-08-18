@@ -4,10 +4,12 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from src.cli.score import ScoringError, parse_vcf, run_score
+from src.cli.score import ScoringError, file_sha256, parse_vcf, run_score
 
 
 class FakeScorer:
+    model_version = "test-fixture-v1"
+
     def predict(self, references, alternates):
         return [0.9 if alternate[256] == "T" else 0.4 for alternate in alternates]
 
@@ -69,6 +71,12 @@ def test_malformed_vcf_fails_with_clear_message(tmp_path):
         parse_vcf(vcf)
 
 
+def test_checkpoint_fingerprint_is_stable_sha256(tmp_path):
+    checkpoint = tmp_path / "best_model.pt"
+    checkpoint.write_bytes(b"versioned checkpoint fixture")
+    assert file_sha256(checkpoint) == "e5a7f63026f358d410e29959f3b0a92cdfd824a11d4a13ed71a2ebb8d787708e"
+
+
 def test_score_runs_end_to_end_and_writes_ranked_and_rejected_reports(tmp_path):
     reference = tmp_path / "reference"; write_reference(reference)
     cosmic = tmp_path / "cosmic.csv"; write_cosmic(cosmic)
@@ -89,6 +97,7 @@ def test_score_runs_end_to_end_and_writes_ranked_and_rejected_reports(tmp_path):
 
     assert report["scored_variants"] == 2
     assert report["rejected_alleles_or_records"] == 2
+    assert report["model_checkpoint_version"] == "test-fixture-v1"
     assert ranked.Mutation.tolist() == ["chr1:500 A>T", "chr1:500 A>C"]
     assert ranked.Priority_Tier.iloc[0] == "top_5_percent"
     assert "Uncalibrated" in ranked.columns[4]

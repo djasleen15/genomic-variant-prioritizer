@@ -10,8 +10,11 @@ data/*
 *.ckpt
 *.pt
 *.bin
+*.safetensors
+*.onnx
 checkpoints/
 mlruns/
+run/
 
 # Python
 __pycache__/
@@ -21,6 +24,10 @@ __pycache__/
 
 # Conda / env
 *.egg-info/
+.venv/
+build/
+dist/
+.env
 
 # OS
 .DS_Store

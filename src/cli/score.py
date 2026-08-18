@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -123,6 +124,9 @@ def add_sequences(variants: list[Variant], reference_dir: Path) -> tuple[list[Va
 
 class FineTunedScorer:
     def __init__(self, checkpoint_path: Path, batch_size: int = 32, device: str | None = None):
+        self.checkpoint_path = checkpoint_path
+        self.checkpoint_sha256 = file_sha256(checkpoint_path)
+        self.model_version = f"phase4-best-model-sha256:{self.checkpoint_sha256}"
         self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else "cpu"))
         self.batch_size = batch_size
         self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
@@ -140,6 +144,15 @@ class FineTunedScorer:
             batch = {key: value.to(self.device) for key, value in batch.items()}
             probabilities.extend(torch.softmax(self.model(batch), dim=-1)[:, 1].cpu().tolist())
         return probabilities
+
+
+def file_sha256(path: Path, chunk_size: int = 1024 * 1024) -> str:
+    """Return a stable checkpoint fingerprint without loading it into memory."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(chunk_size), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def load_cosmic_associations(path: Path) -> dict[str, str]:
@@ -198,6 +211,7 @@ def run_score(input_path: Path, output_dir: Path, reference_dir: Path, cosmic_pa
     pd.DataFrame(rows, columns=OUTPUT_COLUMNS).to_csv(output_dir / "ranked_variants.csv", index=False)
     report = {
         "input_vcf": str(input_path), "model": MODEL_NAME, "model_usage": "fine_tuned_model_only",
+        "model_checkpoint_version": getattr(scorer, "model_version", "unversioned"),
         "scored_variants": len(rows), "rejected_alleles_or_records": len(rejected),
         "ranking_score_caveat": "Ranking_Score_Uncalibrated is suitable for ordering variants, not as calibrated confidence. Priority_Tier is cohort-relative.",
         "outputs": {"ranked": str(output_dir / "ranked_variants.csv"), "rejected": str(output_dir / "rejected_variants.csv")},

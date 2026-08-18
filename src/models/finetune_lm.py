@@ -9,7 +9,6 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-import mlflow
 import numpy as np
 import pandas as pd
 import torch
@@ -213,6 +212,8 @@ def flatten(prefix: str, values: dict) -> dict[str, float]:
 
 
 def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingConfig) -> dict:
+    import mlflow
+
     seed_everything(config.seed)
     output_dir.mkdir(parents=True, exist_ok=True); mlflow_dir.mkdir(parents=True, exist_ok=True)
     frame = pd.read_csv(input_path, sep="\t", usecols=["Reference_Sequence", "Alternate_Sequence", "Label", "Split"])

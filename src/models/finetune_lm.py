@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -305,9 +306,16 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
     with mlflow.start_run(run_name="paired_nt_full" if not config.freeze_encoder else "paired_nt_frozen") as active_run:
         mlflow.log_params({**asdict(config), "architecture": "shared_encoder_variant_token_concat_ref_alt_delta", "variant_token_index": VARIANT_TOKEN_INDEX, "split_version": "gene-split-v1", "device": str(device), "class_weights": weights.cpu().tolist()})
         for epoch in range(1, config.epochs + 1):
+            epoch_started = time.monotonic()
             loss = train_epoch(model, loaders["train"], optimizer, criterion, device)
             validation = evaluate(model, loaders["validation"], device)
             history.append({"epoch": epoch, "train_loss": loss, "validation": validation})
+            print(
+                f"Epoch {epoch}/{config.epochs} - loss={loss:.6f} "
+                f"validation_AUPRC={validation['auprc']:.6f} "
+                f"elapsed_minutes={(time.monotonic() - epoch_started) / 60:.1f}",
+                flush=True,
+            )
             mlflow.log_metrics({"train_loss": loss, **flatten("validation", validation)}, step=epoch)
             if validation["auprc"] > best_auprc:
                 best_auprc, stale_epochs = validation["auprc"], 0

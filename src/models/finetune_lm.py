@@ -40,6 +40,8 @@ class TrainingConfig:
     audit_samples: int = 100
     pooling: str = "mutation"
     conservation_feature_count: int = 0
+    evaluate_test: bool = True
+    experiment_name: str = "phase4-nucleotide-transformer"
 
 
 class VariantPairDataset(Dataset):
@@ -279,7 +281,11 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
         raise RuntimeError("Phase 4 training requires a CUDA GPU; use the supplied Colab runner")
     model.to(device)
 
-    subsets = {name: frame.loc[frame.Split == name].reset_index(drop=True) for name in ("train", "validation", "test")}
+    evaluation_splits = ("train", "validation", "test") if config.evaluate_test else ("train", "validation")
+    subsets = {
+        name: frame.loc[frame.Split == name].reset_index(drop=True)
+        for name in evaluation_splits
+    }
     collator = PairCollator(tokenizer)
     loaders = {
         name: DataLoader(VariantPairDataset(data), batch_size=config.batch_size, shuffle=name == "train", collate_fn=collator, num_workers=2, pin_memory=True)
@@ -293,7 +299,8 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
         weight_decay=config.weight_decay,
     )
     checkpoint = output_dir / "best_model.pt"
-    mlflow.set_tracking_uri(mlflow_dir.resolve().as_uri()); mlflow.set_experiment("phase4-nucleotide-transformer")
+    mlflow.set_tracking_uri(mlflow_dir.resolve().as_uri())
+    mlflow.set_experiment(config.experiment_name)
     best_auprc, stale_epochs, history = -1.0, 0, []
     with mlflow.start_run(run_name="paired_nt_full" if not config.freeze_encoder else "paired_nt_frozen") as active_run:
         mlflow.log_params({**asdict(config), "architecture": "shared_encoder_variant_token_concat_ref_alt_delta", "variant_token_index": VARIANT_TOKEN_INDEX, "split_version": "gene-split-v1", "device": str(device), "class_weights": weights.cpu().tolist()})
@@ -310,19 +317,26 @@ def run(input_path: Path, output_dir: Path, mlflow_dir: Path, config: TrainingCo
                 if stale_epochs > config.patience: break
         saved = torch.load(checkpoint, map_location=device)
         model.load_state_dict(saved["model_state_dict"])
-        validation, test = evaluate(model, loaders["validation"], device), evaluate(model, loaders["test"], device)
-        final_metrics = {**flatten("final_validation", validation), **flatten("test", test)}
+        validation = evaluate(model, loaders["validation"], device)
+        test = evaluate(model, loaders["test"], device) if config.evaluate_test else None
+        final_metrics = flatten("final_validation", validation)
+        if test is not None:
+            final_metrics.update(flatten("test", test))
         mlflow.log_metrics(final_metrics); mlflow.log_artifact(str(checkpoint), artifact_path="checkpoints"); mlflow.log_artifact(str(output_dir / "tokenizer_audit.json"), artifact_path="audits")
         run_id = active_run.info.run_id
     report = {
         "model_name": config.model_name, "architecture": "shared encoder; contextual embeddings at mutation-containing token 43 for ref, alt, and alt-minus-ref concatenated into an MLP classifier",
         "training_approach": "frozen_encoder_plus_head" if config.freeze_encoder else "full_fine_tuning",
         "split_version": "gene-split-v1", "class_weighted_loss": weights.cpu().tolist(),
-        "tokenizer_audit": audit, "history": history, "validation": validation, "test": test,
-        "baseline": {"validation_auprc": BASELINE_VALIDATION_AUPRC, "test_auprc": BASELINE_TEST_AUPRC},
-        "improvement": {"validation_auprc": validation["auprc"] - BASELINE_VALIDATION_AUPRC, "test_auprc": test["auprc"] - BASELINE_TEST_AUPRC},
+        "tokenizer_audit": audit, "history": history, "validation": validation,
+        "baseline": {"validation_auprc": BASELINE_VALIDATION_AUPRC},
+        "improvement": {"validation_auprc": validation["auprc"] - BASELINE_VALIDATION_AUPRC},
         "mlflow_run_id": run_id, "checkpoint": str(checkpoint),
     }
+    if test is not None:
+        report["test"] = test
+        report["baseline"]["test_auprc"] = BASELINE_TEST_AUPRC
+        report["improvement"]["test_auprc"] = test["auprc"] - BASELINE_TEST_AUPRC
     (output_dir / "phase4_report.json").write_text(json.dumps(report, indent=2) + "\n")
     return report
 
@@ -341,7 +355,9 @@ def run_audit(input_path: Path, output_path: Path, sample_size: int = 100) -> di
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, required=True); parser.add_argument("--output-dir", type=Path, required=True); parser.add_argument("--mlflow-dir", type=Path, required=True)
-    parser.add_argument("--batch-size", type=int, default=16); parser.add_argument("--learning-rate", type=float, default=2e-5); parser.add_argument("--epochs", type=int, default=3); parser.add_argument("--patience", type=int, default=1); parser.add_argument("--audit-samples", type=int, default=100); parser.add_argument("--freeze-encoder", action="store_true")
+    parser.add_argument("--model-name", default=MODEL_NAME); parser.add_argument("--batch-size", type=int, default=16); parser.add_argument("--learning-rate", type=float, default=2e-5); parser.add_argument("--weight-decay", type=float, default=0.01); parser.add_argument("--epochs", type=int, default=3); parser.add_argument("--patience", type=int, default=1); parser.add_argument("--audit-samples", type=int, default=100); parser.add_argument("--freeze-encoder", action="store_true"); parser.add_argument("--pooling", choices=("mutation", "mean", "attention"), default="mutation")
+    parser.add_argument("--validation-only", action="store_true", help="Do not construct a test loader or emit test metrics")
+    parser.add_argument("--experiment-name", default="phase4-nucleotide-transformer")
     parser.add_argument("--audit-only", action="store_true", help="Run tokenizer audit without loading the model or requiring a GPU")
     return parser.parse_args()
 
@@ -351,7 +367,7 @@ def main() -> None:
     if args.audit_only:
         result = run_audit(args.input, args.output_dir / "tokenizer_audit.json", args.audit_samples)
     else:
-        config = TrainingConfig(batch_size=args.batch_size, learning_rate=args.learning_rate, epochs=args.epochs, patience=args.patience, freeze_encoder=args.freeze_encoder, audit_samples=args.audit_samples)
+        config = TrainingConfig(model_name=args.model_name, batch_size=args.batch_size, learning_rate=args.learning_rate, weight_decay=args.weight_decay, epochs=args.epochs, patience=args.patience, freeze_encoder=args.freeze_encoder, audit_samples=args.audit_samples, pooling=args.pooling, evaluate_test=not args.validation_only, experiment_name=args.experiment_name)
         result = run(args.input, args.output_dir, args.mlflow_dir, config)
     print(json.dumps(result, indent=2))
 

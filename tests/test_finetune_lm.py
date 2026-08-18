@@ -12,6 +12,7 @@ from src.models.finetune_lm import (
     class_weights,
     covering_token,
     metrics,
+    parse_args,
 )
 
 
@@ -115,3 +116,22 @@ def test_metrics_match_phase3_threshold_contract():
     result = metrics([0, 0, 1, 1], [0.1, 0.4, 0.6, 0.9])
     assert result["auprc"] == 1.0
     assert set(result["thresholds"]) == {"0.25", "0.5", "0.75"}
+
+
+def test_phase9_cli_can_select_model_and_disable_test_evaluation(monkeypatch):
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "finetune_lm",
+            "--input", "dataset.tsv",
+            "--output-dir", "artifacts",
+            "--mlflow-dir", "mlruns",
+            "--model-name", "example/100m",
+            "--validation-only",
+            "--experiment-name", "phase9-model-scale",
+        ],
+    )
+    args = parse_args()
+    assert args.model_name == "example/100m"
+    assert args.validation_only is True
+    assert args.experiment_name == "phase9-model-scale"

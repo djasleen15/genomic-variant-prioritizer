@@ -1,0 +1,32 @@
+{
+  "phase": 7,
+  "status": "complete",
+  "completion_commit": "dc21269",
+  "deliverable": "v1 packaging and documentation",
+  "package_version": "0.1.0",
+  "artifacts": [
+    "Dockerfile",
+    "requirements-docker.txt",
+    ".dockerignore",
+    "environment.yml",
+    "pyproject.toml",
+    "README.md"
+  ],
+  "documentation_covers": [
+    "GRCh38 input requirement",
+    "local Conda quickstart",
+    "Docker quickstart",
+    "TCGA/cBioPortal and COSMIC sourcing and licensing",
+    "checkpoint provenance",
+    "reproducible Phase 2 workflow",
+    "model evaluation results",
+    "limitations and non-clinical scope"
+  ],
+  "packaging_properties": {
+    "container_contains_private_data": false,
+    "container_contains_checkpoint": false,
+    "dependencies_pinned": true,
+    "cli_entry_point": "variant-prioritizer"
+  },
+  "report_kind": "retrospective reconstruction from committed packaging, README, project metadata, and Git history"
+}

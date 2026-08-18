@@ -1,0 +1,31 @@
+{
+  "phase": 6,
+  "status": "complete",
+  "completion_commit": "23f4b2a",
+  "deliverable": "batch scoring CLI",
+  "command": "variant-prioritizer score",
+  "input_contract": {
+    "format": "VCF/BCF readable by pysam",
+    "genome_build": "GRCh38",
+    "variant_scope": "SNVs",
+    "genotype_columns_required": false
+  },
+  "outputs": [
+    "ranked_variants.csv",
+    "rejected_variants.csv",
+    "run_metadata.json"
+  ],
+  "robustness_covered_by_tests": [
+    "multi-allelic SNV expansion",
+    "chromosome-name normalization",
+    "site-only VCF acceptance",
+    "non-SNV rejection with an explicit reason",
+    "malformed VCF failure with a clear message",
+    "end-to-end ranked and rejected report generation"
+  ],
+  "provenance": {
+    "checkpoint_fingerprint": "complete SHA-256 recorded in run metadata",
+    "score_semantics": "uncalibrated ranking score, not a clinical probability"
+  },
+  "report_kind": "retrospective reconstruction from committed code, tests, README, and Git history"
+}

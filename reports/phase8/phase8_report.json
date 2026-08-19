@@ -1,0 +1,94 @@
+{
+  "phase": 8,
+  "status": "complete",
+  "model": "approved Phase 4 checkpoint",
+  "model_name": "InstaDeepAI/nucleotide-transformer-v2-50m-multi-species",
+  "checkpoint_sha256": "a221f21ee105c4d5ec956236a0fe26cd044ff7a83031157e008b3de260ec6442",
+  "split": "gene-split-v1 test only",
+  "prediction_source": "approved Phase 5 fine_tuned_predictions.tsv",
+  "attention_summary": "Final encoder layer, mutation-token query (token index 43), mean across heads; reference and alternate sequences shown separately.",
+  "selection_policy": "Three probability-quantile-spaced correct examples per class and up to two highest-confidence errors, selected deterministically before attention inspection.",
+  "examples": [
+    {
+      "example_id": "01_correct_driver_row_13954",
+      "dataset_row": 13954,
+      "category": "correct_driver",
+      "label": 1,
+      "predicted_label": 1,
+      "fine_tuned_probability": 0.5001603364944458,
+      "plot": "attention_01_correct_driver_row_13954.png",
+      "canonical": "true_driver_example.png"
+    },
+    {
+      "example_id": "02_correct_driver_row_100263",
+      "dataset_row": 100263,
+      "category": "correct_driver",
+      "label": 1,
+      "predicted_label": 1,
+      "fine_tuned_probability": 0.5309541821479797,
+      "plot": "attention_02_correct_driver_row_100263.png",
+      "canonical": null
+    },
+    {
+      "example_id": "03_correct_driver_row_112660",
+      "dataset_row": 112660,
+      "category": "correct_driver",
+      "label": 1,
+      "predicted_label": 1,
+      "fine_tuned_probability": 0.965699017047882,
+      "plot": "attention_03_correct_driver_row_112660.png",
+      "canonical": null
+    },
+    {
+      "example_id": "04_correct_passenger_row_103194",
+      "dataset_row": 103194,
+      "category": "correct_passenger",
+      "label": 0,
+      "predicted_label": 0,
+      "fine_tuned_probability": 0.3029424250125885,
+      "plot": "attention_04_correct_passenger_row_103194.png",
+      "canonical": "true_passenger_example.png"
+    },
+    {
+      "example_id": "05_correct_passenger_row_79102",
+      "dataset_row": 79102,
+      "category": "correct_passenger",
+      "label": 0,
+      "predicted_label": 0,
+      "fine_tuned_probability": 0.4034120738506317,
+      "plot": "attention_05_correct_passenger_row_79102.png",
+      "canonical": null
+    },
+    {
+      "example_id": "06_correct_passenger_row_5160",
+      "dataset_row": 5160,
+      "category": "correct_passenger",
+      "label": 0,
+      "predicted_label": 0,
+      "fine_tuned_probability": 0.499998539686203,
+      "plot": "attention_06_correct_passenger_row_5160.png",
+      "canonical": null
+    },
+    {
+      "example_id": "07_false_positive_row_45821",
+      "dataset_row": 45821,
+      "category": "false_positive",
+      "label": 0,
+      "predicted_label": 1,
+      "fine_tuned_probability": 0.9670175909996032,
+      "plot": "attention_07_false_positive_row_45821.png",
+      "canonical": null
+    },
+    {
+      "example_id": "08_false_positive_row_13748",
+      "dataset_row": 13748,
+      "category": "false_positive",
+      "label": 0,
+      "predicted_label": 1,
+      "fine_tuned_probability": 0.9626989364624025,
+      "plot": "attention_08_false_positive_row_13748.png",
+      "canonical": null
+    }
+  ],
+  "limitation": "Attention weights are a diagnostic aid, not a definitive causal explanation. They show where the model allocated attention, but do not establish which bases caused the prediction or prove biological understanding; sequence attribution for genomic transformers remains an unsettled research area."
+}

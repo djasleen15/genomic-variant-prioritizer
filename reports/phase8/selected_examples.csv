@@ -1,0 +1,9 @@
+dataset_row,label,fine_tuned_probability,predicted_label,category,selection_rule
+13954,1,0.5001603364944458,1,correct_driver,probability-quantile-spaced within each correct class; highest-confidence errors
+100263,1,0.5309541821479797,1,correct_driver,probability-quantile-spaced within each correct class; highest-confidence errors
+112660,1,0.965699017047882,1,correct_driver,probability-quantile-spaced within each correct class; highest-confidence errors
+103194,0,0.3029424250125885,0,correct_passenger,probability-quantile-spaced within each correct class; highest-confidence errors
+79102,0,0.4034120738506317,0,correct_passenger,probability-quantile-spaced within each correct class; highest-confidence errors
+5160,0,0.499998539686203,0,correct_passenger,probability-quantile-spaced within each correct class; highest-confidence errors
+45821,0,0.9670175909996032,1,false_positive,probability-quantile-spaced within each correct class; highest-confidence errors
+13748,0,0.9626989364624025,1,false_positive,probability-quantile-spaced within each correct class; highest-confidence errors

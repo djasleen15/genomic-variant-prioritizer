@@ -203,6 +203,38 @@ The test improvement is statistically supported but modest and marginal: its con
 
 The detailed bootstrap comparison, precision–recall curves, and calibration histogram are in `reports/phase5/`.
 
+## Phase 8: attention diagnostics
+
+Phase 8 adds a lightweight attention overlay for a small, deterministically
+selected set of predictions from the original approved Phase 4 checkpoint. The
+plots summarize final-layer attention from the mutation-containing token (token
+index 43, containing zero-based base index 256) across each 512 bp reference and
+alternate window. The sample includes correctly predicted drivers and
+passengers plus incorrect predictions where available; examples are selected by
+a documented score-based rule before their attention patterns are inspected.
+
+![Correct driver attention diagnostic](reports/phase8/true_driver_example.png)
+
+![Correct passenger attention diagnostic](reports/phase8/true_passenger_example.png)
+
+**These visualizations are diagnostic aids, not definitive causal
+explanations.** Attention shows where the model allocated attention; it does not
+establish which sequence bases caused a prediction, demonstrate a biological
+mechanism, or prove that the model understands the biology. Sequence attribution
+for genomic transformers remains an unsettled research area. See
+[`reports/phase8/README.md`](reports/phase8/README.md) for the method, underlying
+token-level data, and complete limitation statement.
+
+## Phase 9 exploratory infrastructure (not completed)
+
+Phase 9 model-improvement scaffolding implements alternative pooling,
+conservation-feature handling, reverse-complement augmentation, fixed-split
+enforcement, and validation-only experiment controls. This infrastructure is
+unit-tested, but the improvement track was stopped before the planned experiment
+sequence ran to completion. It produced no approved result and does not replace
+the Phase 4 checkpoint or Phase 5 statistical comparison reported above. No
+partial Phase 9 checkpoint or unvalidated metric is part of the project record.
+
 ## Limitations
 
 - **Weak proxy labels:** COSMIC CGC gene membership labels every mutation in a CGC gene as driver-like. It is not variant-level biological ground truth.
